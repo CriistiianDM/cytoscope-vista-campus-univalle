@@ -1,0 +1,78 @@
+[
+    {
+        "selector": "node",
+        "style": {
+          "height": 80,
+          "width": 80,
+          "background-fit": "cover",
+          "border-color": "#000",
+          "border-width": 3,
+          "border-opacity": 0.5,
+          "label": "data(id)"
+        }
+    },
+    {
+        "selector": "edge",
+        "style": {
+            "width": 3,
+            "line-color": "#ccc",
+            "target-arrow-color": "#ccc",
+            "target-arrow-shape": "triangle",
+            "curve-style": "bezier"
+        }
+    },
+    {
+        "selector": "#u",
+        "style": {
+            "background-image": "url('../images/2291.jpg')"
+        }
+    },
+    {
+        "selector": "#a",
+        "style": {
+            "background-image": "url('../images/2294.jpg')"
+        }
+    },
+    {
+        "selector": "#c",
+        "style": {
+            "background-image": "url('../images/25726232_5000_3_01.jpg')"
+        }
+    },
+    {
+        "selector": "#b",
+        "style": {
+            "background-image": "url('../images/23104955_4500_9_07.jpg')"
+        }
+    },
+    {
+        "selector": "#k",
+        "style": {
+            "background-image": "url('../images/3700_10_06.jpg')"
+        }
+    },
+    {
+        "selector": "#d",
+        "style": {
+            "background-image": "url('../images/18305516_3900_7_04.jpg')"
+        }
+    },
+    {
+        "selector": "#lol",
+        "style": {
+            "background-image": "url('../images/18305516_3900_7_04.jpg')"
+        }
+    },
+    {
+        "selector": "#cristiank",
+        "style": {
+            "background-image": "url('../images/16953222_3800_5_08.jpg')"
+        }
+    },
+    {
+        "selector": "#presidente",
+        "style": {
+            "background-image": "url('../images/2222.jpg')"
+        }
+    }
+]
