@@ -8,7 +8,7 @@ Implementación de vista para el campus de univalle con libreria cytoscope
 * Estudiante
 
 # INTEGRANTES
-* [Milton Armando Garcia Ecue](https://github.com/1000tonage)
+* [Milton Armando Garcia Ecue](https://github.com/1000tonage) <img width='25em' src='https://user-images.githubusercontent.com/62184928/179299314-6e19e6e1-a9de-424c-ae30-5a01f556b064.png' />
 * [Cristian Duvan Machado](https://://github.com/criistiianDM)
 * [Estrategia Ases](https://github.com/sistemasases)
 
