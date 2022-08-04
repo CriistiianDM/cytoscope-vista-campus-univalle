@@ -54,6 +54,8 @@ function jerarquia_cytoscpae() {
 let object_nodes = new Object()
 
 /**
+ *  @modificacion_por Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
+ *  @nuevo ahora al dar click en un nodo despues de haberlo guardado y sacado del array de nodos, lo vuelve a poner en el grafo
  *  funcion por defecto de cytoscape
  */
 cy.on('tap', 'node', function () {
@@ -88,7 +90,7 @@ cy.on('tap', 'node', function () {
             var eater = thisFood.connectedEdges(function (el) {
                 return el.target().same(thisFood);
             }).source();
-    
+           
             thisFood.delay(delay, function () {
                 eater.addClass('eating');
             }).animate({
@@ -102,7 +104,8 @@ cy.on('tap', 'node', function () {
             }, {
                 duration: duration,
                 complete: function () {
-                    object_nodes[thisFood.id()] = node_id
+                    console.log(thisFood,'vamos cris tu puedes');
+                    object_nodes[thisFood.id()] = eater.id();
                     thisFood.remove();
                 }
             });
@@ -116,6 +119,7 @@ cy.on('tap', 'node', function () {
         for (var i in object_nodes) {
 
             if (object_nodes[i] === node_id) {
+
             cy.add({ 
                 data: { id: i }
              });
@@ -127,6 +131,7 @@ cy.on('tap', 'node', function () {
             });
             
             layout.run();
+
            }
             
         }
