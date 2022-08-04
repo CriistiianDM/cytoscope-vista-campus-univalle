@@ -51,6 +51,8 @@ function jerarquia_cytoscpae() {
 }
 
 
+let object_nodes = new Object()
+
 /**
  *  funcion por defecto de cytoscape
  */
@@ -58,23 +60,26 @@ cy.on('tap', 'node', function () {
     var nodes = this;
     var tapped = nodes;
     var food = [];
+    var node_id = tapped.id();
 
     nodes.addClass('eater');
-
+  
     for (; ;) {
         var connectedEdges = nodes.connectedEdges(function (el) {
             return !el.target().anySame(nodes);
         });
-
+        
         var connectedNodes = connectedEdges.targets();
-
+       
         Array.prototype.push.apply(food, connectedNodes);
-
+       
         nodes = connectedNodes;
 
         if (nodes.empty()) { break; }
+       
     }
-
+ 
+  
     var delay = 0;
     var duration = 500;
     for (var i = food.length - 1; i >= 0; i--) {
@@ -83,11 +88,11 @@ cy.on('tap', 'node', function () {
             var eater = thisFood.connectedEdges(function (el) {
                 return el.target().same(thisFood);
             }).source();
-
+    
             thisFood.delay(delay, function () {
                 eater.addClass('eating');
             }).animate({
-                position: eater.position(),
+                position: eater.position(),//este es el que cambia la posicion incluso en lo que lo guardo en el objeto
                 css: {
                     'width': 10,
                     'height': 10,
@@ -97,6 +102,7 @@ cy.on('tap', 'node', function () {
             }, {
                 duration: duration,
                 complete: function () {
+                    object_nodes[thisFood.id()] = node_id
                     thisFood.remove();
                 }
             });
@@ -104,5 +110,27 @@ cy.on('tap', 'node', function () {
             delay += duration;
         })();
     } // for
+
+    if (food.length === 0) {
+      
+        for (var i in object_nodes) {
+
+            if (object_nodes[i] === node_id) {
+            cy.add({ 
+                data: { id: i }
+             });
+          
+            cy.add({ group: 'edges', data: { source: node_id , target: i } })
+
+            var layout = cy.layout({
+                name: 'breadthfirst'
+            });
+            
+            layout.run();
+           }
+            
+        }
+        console.log(object_nodes);
+    }
 
 }); // on tap
