@@ -74,5 +74,11 @@
         "style": {
             "background-image": "url('../images/2222.jpg')"
         }
+    },
+    {
+        "selector": "#bu,#j,#l,#m,#n,#o,#p,#q,#r,#s,#t",
+        "style": {
+            "background-image": "url('../images/26259347_5100_5_09.jpg')"
+        }
     }
 ]

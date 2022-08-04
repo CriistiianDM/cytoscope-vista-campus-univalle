@@ -50,19 +50,18 @@ function jerarquia_cytoscpae() {
 
 }
 
-
+//objecto para guardar los nodos y sus relaciones que fueron borrados
 let object_nodes = new Object()
 
 /**
  *  @modificacion_por Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
  *  @nuevo ahora al dar click en un nodo despues de haberlo guardado y sacado del array de nodos, lo vuelve a poner en el grafo
- *  funcion por defecto de cytoscape
+ *  funcion por defecto de cytoscape hecha por @author: https://cytoscape.org/
  */
 cy.on('tap', 'node', function () {
     var nodes = this;
     var tapped = nodes;
     var food = [];
-    var node_id = tapped.id();
 
     nodes.addClass('eater');
   
@@ -94,7 +93,7 @@ cy.on('tap', 'node', function () {
             thisFood.delay(delay, function () {
                 eater.addClass('eating');
             }).animate({
-                position: eater.position(),//este es el que cambia la posicion incluso en lo que lo guardo en el objeto
+                position: eater.position(),
                 css: {
                     'width': 10,
                     'height': 10,
@@ -104,7 +103,7 @@ cy.on('tap', 'node', function () {
             }, {
                 duration: duration,
                 complete: function () {
-                    console.log(thisFood,'vamos cris tu puedes');
+                    //guardamos el nombre del nodo borrado y quien era su padre
                     object_nodes[thisFood.id()] = eater.id();
                     thisFood.remove();
                 }
@@ -114,20 +113,23 @@ cy.on('tap', 'node', function () {
         })();
     } // for
 
+    //cuando no tiene hijos verifica si en el pasado tenia y se los agrega
     if (food.length === 0) {
-      
+        //recorrer el objecto
         for (var i in object_nodes) {
-
-            if (object_nodes[i] === node_id) {
+            //verifica si el nodo padre tenia hijoss y si es asi lo agrega
+            if (object_nodes[i] === tapped.id()) {
 
             cy.add({ 
                 data: { id: i }
              });
           
-            cy.add({ group: 'edges', data: { source: node_id , target: i } })
+            cy.add({ group: 'edges', data: { source: tapped.id() , target: i } })
 
             var layout = cy.layout({
-                name: 'breadthfirst'
+                name: 'breadthfirst',
+                directed: true,
+                padding: 10
             });
             
             layout.run();
@@ -135,7 +137,7 @@ cy.on('tap', 'node', function () {
            }
             
         }
-        console.log(object_nodes);
+
     }
 
 }); // on tap
