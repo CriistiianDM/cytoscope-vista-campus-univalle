@@ -1,120 +1,78 @@
 {
     "nodes": [
         {
-            "data": { "id": "a" }
-        },
-
-        {
-            "data": { "id": "b" }
-        },
-
-        {
-            "data": { "id": "c" }
+            "data": { "id": "Manuel Salvador y Rosa Elena" }
         },
         {
-            "data": { "id": "d" }
+            "data": { "id": "José" }
         },
         {
-            "data": { "id": "u" }
+            "data": { "id": "Rosa" }
         },
         {
-            "data": { "id": "k" }
+            "data": { "id": "Antonio" }
         },
         {
-            "data": { "id": "lol" }
+            "data": { "id": "Esther" }
         },
         {
-            "data": { "id": "cristiank" }
+            "data": { "id": "Leonor" }
         },
         {
-            "data": { "id": "bu" }
+            "data": { "id": "Nohelba" }
         },
         {
-            "data": { "id": "j" }
+            "data": { "id": "Rosalba" }
         },
         {
-            "data": { "id": "p" }
+            "data": { "id": "Edilberto" }
         },
         {
-            "data": { "id": "m" }
+            "data": { "id": "Cenelia" }
         },
         {
-            "data": { "id": "n" }
+            "data": { "id": "Luz Marina" }
         },
         {
-            "data": { "id": "o" }
-        },
-        {
-            "data": { "id": "l" }
-        },
-        {
-            "data": { "id": "q" }
-        },
-        {
-            "data": { "id": "r" }
-        },
-        {
-            "data": { "id": "s" }
-        },
-        {
-            "data": { "id": "t" }
+            "data": { "id": "Herney" }
         }
     ],
     "edges": [
         {
-            "data": { "id": "ab", "source": "a", "target": "b" }
-
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "José" }
         },
         {
-            "data": { "id": "cd", "source": "c", "target": "d" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Rosa" }
         },
         {
-            "data": { "id": "uc", "source": "u", "target": "c" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Antonio" }
         },
         {
-            "data": { "id": "ua", "source": "u", "target": "a" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Esther" }
         },
         {
-            "data": { "id": "ak", "source": "a", "target": "k" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Leonor" }
         },
         {
-            "data": { "id": "kl", "source": "k", "target": "lol" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Rosalba" }
         },
         {
-            "data": { "id": "kl1", "source": "u", "target": "cristiank" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Edelberto" }
         },
         {
-            "data": { "id": "kl2", "source": "a", "target": "bu" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Pedro" }
         },
         {
-            "data": { "id": "kl3", "source": "b", "target": "j" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Nohelba" }
         },
         {
-            "data": { "id": "kl4", "source": "c", "target": "p" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Cenelia" }
         },
         {
-            "data": { "id": "kl5", "source": "d", "target": "m" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Luz Marina" }
         },
         {
-            "data": { "id": "kl6", "source": "u", "target": "n" }
-        },
-        {
-            "data": { "id": "kl7", "source": "a", "target": "o" }
-        },
-        {
-            "data": { "id": "kl8", "source": "b", "target": "l" }
-        },
-        {
-            "data": { "id": "kl9", "source": "c", "target": "q" }
-        },
-        {
-            "data": { "id": "kl10", "source": "d", "target": "r" }
-        },
-        {
-            "data": { "id": "kl11", "source": "u", "target": "s" }
-        },
-        {
-            "data": { "id": "kl12", "source": "a", "target": "t" }
+            "data": { "id": "Abuelos", "source": "Manuel Salvador y Rosa Elena", "target": "Herney" }
         }
     ]
 }
