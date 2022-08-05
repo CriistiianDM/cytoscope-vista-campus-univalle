@@ -80,38 +80,8 @@ cy.on('tap', 'node', function () {
        
     }
  
-  
-    var delay = 0;
-    var duration = 500;
-    for (var i = food.length - 1; i >= 0; i--) {
-        (function () {
-            var thisFood = food[i];
-            var eater = thisFood.connectedEdges(function (el) {
-                return el.target().same(thisFood);
-            }).source();
-           
-            thisFood.delay(delay, function () {
-                eater.addClass('eating');
-            }).animate({
-                position: eater.position(),
-                css: {
-                    'width': 10,
-                    'height': 10,
-                    'border-width': 0,
-                    'opacity': 0
-                }
-            }, {
-                duration: duration,
-                complete: function () {
-                    //guardamos el nombre del nodo borrado y quien era su padre
-                    object_nodes[thisFood.id()] = eater.id();
-                    thisFood.remove();
-                }
-            });
-
-            delay += duration;
-        })();
-    } // for
+    //animacion de los nodos al borrarlos
+    animacion_cy_arrow_node(food,0,500,0);
 
     //cuando no tiene hijos verifica si en el pasado tenia y se los agrega
     if (food.length === 0) {
@@ -123,21 +93,98 @@ cy.on('tap', 'node', function () {
             cy.add({ 
                 data: { id: i }
              });
-          
-            cy.add({ group: 'edges', data: { source: tapped.id() , target: i } })
+
+            cy.style().selector('#' + i).style({
+                'opacity': 0,
+                'width': 10,
+                'height': 10,
+            });
+
+            cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}` , source: tapped.id() , target: i } })
 
             var layout = cy.layout({
                 name: 'breadthfirst',
                 directed: true,
                 padding: 10
             });
-            
-            layout.run();
-
+          
+            Array.prototype.push.apply(food, cy.getElementById(i));
            }
             
         }
 
+        //agrega el nodo al flujo
+        layout.run();
+
+        //animar el nodo que se agrega
+        animacion_cy_arrow_node(food,0,800,1);
+
     }
 
 }); // on tap
+
+
+
+/**
+ *  @modificacion_por Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
+ *  @nuevo ahora al hace la animacion de los nodos devolverlos al grafo
+ *  funcion por defecto de cytoscape hecha por @author: https://cytoscape.org/
+ */
+function animacion_cy_arrow_node(food,delay,duration,type) {
+
+    let pistion_aux = {}
+    let array_css = [
+        {
+            'width': 10,
+            'height': 10,
+            'border-width': 0,
+            'opacity': 0
+        },
+        {
+            'opacity': 1,
+            'width': 80,
+            'height': 80,
+        }
+    ]
+
+    for (var i = food.length - 1; i >= 0; i--) {
+
+        (function () {
+            var thisFood = food[i];
+            var eater = thisFood.connectedEdges(function (el) {
+                return el.target().same(thisFood);
+            }).source();
+
+            //guardar la posicion del nodo y asignarle la del padre
+            if (type === 1) {
+                localStorage.setItem('position_aux',JSON.stringify(thisFood.position()))
+                thisFood.position(eater.position())
+                pistion_aux = JSON.parse(localStorage.getItem('position_aux'))
+            }
+            else {
+                pistion_aux = eater.position()
+            }
+           
+            thisFood.delay(delay, function () {
+                eater.addClass('eating');
+            }).animate({
+                position: pistion_aux,
+                css: array_css[type]
+            }, {
+                duration: duration,
+                complete: function () {
+
+                    if (type === 0) {
+                    //guardamos el nombre del nodo borrado y quien era su padre
+                    object_nodes[thisFood.id()] = eater.id();
+                    thisFood.remove();
+                    }
+                }
+            });
+
+            delay += duration;
+
+        })();
+    } // for
+
+}
