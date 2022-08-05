@@ -111,14 +111,15 @@ cy.on('tap', 'node', function () {
             Array.prototype.push.apply(food, cy.getElementById(i));
            }
             
+           //agrega el nodo al flujo
+           layout.run();
+
+           //animar el nodo que se agrega
+           animacion_cy_arrow_node(food,0,800,1);
         }
 
-        //agrega el nodo al flujo
-        layout.run();
 
-        //animar el nodo que se agrega
-        animacion_cy_arrow_node(food,0,800,1);
-
+    
     }
 
 }); // on tap
