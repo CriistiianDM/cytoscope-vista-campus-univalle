@@ -79,7 +79,7 @@ cy.on('tap', 'node', function () {
         if (nodes.empty()) { break; }
        
     }
- 
+   
     //animacion de los nodos al borrarlos
     animacion_cy_arrow_node(food,0,500,0);
 
@@ -114,13 +114,13 @@ cy.on('tap', 'node', function () {
            }
             
         }
-
+      
         if (food[0] !== undefined) {
 
         //guardar la posicion del nodo
         localStorage.setItem('pan', JSON.stringify(cy.pan()))
         localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
-       
+      
         //agrega el nodo al flujo
         layout.run();
        
