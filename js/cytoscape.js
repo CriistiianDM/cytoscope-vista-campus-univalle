@@ -101,23 +101,23 @@ cy.on('tap', 'node', function () {
             });
 
             cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}` , source: tapped.id() , target: i } })
-
-            var layout = cy.layout({
-                name: 'breadthfirst',
-                directed: true,
-                padding: 10
-            });
-          
+         
             Array.prototype.push.apply(food, cy.getElementById(i));
            }
             
-           //agrega el nodo al flujo
-           layout.run();
-
-           //animar el nodo que se agrega
-           animacion_cy_arrow_node(food,0,800,1);
         }
+        
+        var layout = cy.layout({
+            name: 'breadthfirst',
+            directed: true,
+            padding: 10
+        });
 
+        //agrega el nodo al flujo
+        layout.run();
+
+        //animar el nodo que se agrega
+        animacion_cy_arrow_node(food,0,800,1);
 
     
     }
