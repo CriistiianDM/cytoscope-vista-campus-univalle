@@ -85,8 +85,10 @@ cy.on('tap', 'node', function () {
 
     //cuando no tiene hijos verifica si en el pasado tenia y se los agrega
     if (food.length === 0) {
+
         //recorrer el objecto
         for (var i in object_nodes) {
+
             //verifica si el nodo padre tenia hijoss y si es asi lo agrega
             if (object_nodes[i] === tapped.id()) {
 
@@ -101,23 +103,25 @@ cy.on('tap', 'node', function () {
             });
 
             cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}` , source: tapped.id() , target: i } })
-         
+
+            var layout = cy.layout({
+                name: 'breadthfirst',
+                directed: true,
+                padding: 10
+            });
+
             Array.prototype.push.apply(food, cy.getElementById(i));
            }
             
         }
-        
-        var layout = cy.layout({
-            name: 'breadthfirst',
-            directed: true,
-            padding: 10
-        });
 
+        if (food[0] !== undefined) {
         //agrega el nodo al flujo
         layout.run();
 
         //animar el nodo que se agrega
         animacion_cy_arrow_node(food,0,800,1);
+        }
 
     
     }
