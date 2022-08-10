@@ -48,6 +48,10 @@ var cy = cytoscape({
 */
 async function jerarquia_cytoscape() {
 
+    //variables
+    var nodes = cy.getElementById('Martha Lucia');
+    var food = [];
+
     //obtener los nodos del grafo
     const nodes_praticantes = await elements_array('node_praticantes')
     const nodes_monitor = await elements_array('node_monitores')
@@ -75,6 +79,7 @@ async function jerarquia_cytoscape() {
         padding: 10
     });
 
+    //guaradar la posicion del grafo y el zoom del grafo
     localStorage.setItem('pan', JSON.stringify(cy.pan()))
     localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
 
@@ -85,9 +90,17 @@ async function jerarquia_cytoscape() {
     cy.pan(JSON.parse(localStorage.getItem('pan')))
     cy.zoom(JSON.parse(localStorage.getItem('zoom')))
 
+    //edges del nodo seleccionado
+    get_nodes_edges(food,nodes)
+
+    //animacion de los nodos al borrarlos
+    animacion_cy_arrow_node(food, 0, 0, 0);
+
 }
 
+//llamado de la funcion jerarquia_cytoscape
 jerarquia_cytoscape()
+
 
 /**
  * @autor Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
@@ -116,6 +129,9 @@ async function map_nodes(node_json, type, index) {
 /**
  * @autor Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
  * @des map para obtener los edges
+ * @param edges_json array de edges
+ * @param type tipo de edge
+ * @param index indice del edge
 */
 async function map_edges(edges_json, type, index) {
 
@@ -152,22 +168,10 @@ cy.on('tap', 'node', function () {
     var food = [];
 
     nodes.addClass('eater');
-
-    for (; ;) {
-        var connectedEdges = nodes.connectedEdges(function (el) {
-            return !el.target().anySame(nodes);
-        });
-
-        var connectedNodes = connectedEdges.targets();
-
-        Array.prototype.push.apply(food, connectedNodes);
-
-        nodes = connectedNodes;
-
-        if (nodes.empty()) { break; }
-
-    }
-
+    
+    //obtener los nodos y sus relaciones 
+    get_nodes_edges(food,nodes)
+    
     //animacion de los nodos al borrarlos
     animacion_cy_arrow_node(food, 0, 500, 0);
 
@@ -288,5 +292,29 @@ function animacion_cy_arrow_node(food, delay, duration, type) {
 
         })();
     } // for
+
+}
+
+
+/**
+ *  @des funcion para obtener los nodos y sus relaciones 
+ *  funcion por defecto de cytoscape hecha por @author: https://cytoscape.org/
+*/
+function get_nodes_edges(food,nodes) {
+
+    for (; ;) {
+        var connectedEdges = nodes.connectedEdges(function (el) {
+            return !el.target().anySame(nodes);
+        });
+
+        var connectedNodes = connectedEdges.targets();
+
+        Array.prototype.push.apply(food, connectedNodes);
+
+        nodes = connectedNodes;
+
+        if (nodes.empty()) { break; }
+
+    }
 
 }
