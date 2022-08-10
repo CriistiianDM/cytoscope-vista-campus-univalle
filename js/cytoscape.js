@@ -45,10 +45,90 @@ var cy = cytoscape({
 /**
  * @autor Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
  * @des definir la jerarquia
- */
-function jerarquia_cytoscpae() {
+*/
+async function jerarquia_cytoscape() {
+
+    //obtener los nodos del grafo
+    const nodes_praticantes = await elements_array('node_praticantes')
+    const nodes_monitor = await elements_array('node_monitores')
+    const nodes_estudiante = await elements_array('node_student')
+
+    //obtener los edges del grafo
+    const edges_praticantes = await elements_array('edges_node_pp')
+    const edges_monitor = await elements_array('edges_node_pm')
+    const edges_estudiante = await elements_array('edges_node_me')
+
+    //agregar los nodos al grafo
+    map_nodes(nodes_praticantes, 'praticante', 0)
+    map_nodes(nodes_monitor, 'monitor', 0)
+    map_nodes(nodes_estudiante, 'Nombre(s),Apellido(s)', 1)
+
+    //agregar los edges al grafo
+    map_edges(edges_praticantes, 'profecional,praticante', 0)
+    map_edges(edges_monitor, 'praticante,monitor', 0)
+    map_edges(edges_estudiante, 'monitor,nombres,apellidos', 1)
+
+
+    var layout = cy.layout({
+        name: 'breadthfirst',
+        directed: true,
+        padding: 10
+    });
+
+    layout.run();
 
 }
+
+jerarquia_cytoscape()
+
+/**
+ * @autor Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
+ * @des  map para obtener los nodos
+ * @param nodes_praticantes array de nodos
+ * @param type tipo de nodo
+ * @param index indice del nodo
+*/
+async function map_nodes(node_json, type, index) {
+
+    //recorrer los nodos del grafo con map
+    node_json.map(function (node) {
+
+        let id_node = (index === 0) ? node[type] : node[(type).split(',')[0]] + node[(type).split(',')[1]]
+
+        cy.add({
+            data: { id: id_node }
+        });
+
+    })
+
+}
+
+
+
+/**
+ * @autor Cristian Duvan Machado Mosquera <cristian.machado@correounivalle.edu.co>
+ * @des map para obtener los edges
+*/
+async function map_edges(edges_json, type, index) {
+
+    //recorrer los edges del grafo con map
+    edges_json.map(function (edge) {
+
+        if (index === 0) {
+            cy.add({
+                data: { source: edge[(type).split(',')[0]], target: edge[(type).split(',')[1]] }
+            });
+        } else {
+            cy.add({
+                data: { source: edge[(type).split(',')[0]], target: edge[(type).split(',')[1]]+edge[(type).split(',')[2]] }
+            });
+        }
+
+    }
+    )
+
+}
+
 
 //objecto para guardar los nodos y sus relaciones que fueron borrados
 let object_nodes = new Object()
@@ -64,24 +144,24 @@ cy.on('tap', 'node', function () {
     var food = [];
 
     nodes.addClass('eater');
-  
+
     for (; ;) {
         var connectedEdges = nodes.connectedEdges(function (el) {
             return !el.target().anySame(nodes);
         });
-        
+
         var connectedNodes = connectedEdges.targets();
-       
+
         Array.prototype.push.apply(food, connectedNodes);
-       
+
         nodes = connectedNodes;
 
         if (nodes.empty()) { break; }
-       
+
     }
-   
+
     //animacion de los nodos al borrarlos
-    animacion_cy_arrow_node(food,0,500,0);
+    animacion_cy_arrow_node(food, 0, 100, 0);
 
     //cuando no tiene hijos verifica si en el pasado tenia y se los agrega
     if (food.length === 0) {
@@ -92,47 +172,47 @@ cy.on('tap', 'node', function () {
             //verifica si el nodo padre tenia hijoss y si es asi lo agrega
             if (object_nodes[i] === tapped.id()) {
 
-            cy.add({ 
-                data: { id: i }
-             });
+                cy.add({
+                    data: { id: i }
+                });
 
-            cy.style().selector('#' + i).style({
-                'opacity': 0,
-                'width': 10,
-                'height': 10,
-            });
+                cy.style().selector('#' + i).style({
+                    'opacity': 0,
+                    'width': 10,
+                    'height': 10,
+                });
 
-            cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}` , source: tapped.id() , target: i } })
-            
-            var layout = cy.layout({
-                name: 'breadthfirst',
-                directed: true,
-                padding: 10
-            });
+                cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}`, source: tapped.id(), target: i } })
 
-            Array.prototype.push.apply(food, cy.getElementById(i));
-           }
-            
+                var layout = cy.layout({
+                    name: 'breadthfirst',
+                    directed: true,
+                    padding: 10
+                });
+
+                Array.prototype.push.apply(food, cy.getElementById(i));
+            }
+
         }
-      
+
         if (food[0] !== undefined) {
 
-        //guardar la posicion del nodo
-        localStorage.setItem('pan', JSON.stringify(cy.pan()))
-        localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
-      
-        //agrega el nodo al flujo
-        layout.run();
-       
-        //evitar efecto de movimiento del grafo
-        cy.pan(JSON.parse(localStorage.getItem('pan')))
-        cy.zoom(JSON.parse(localStorage.getItem('zoom')))
-        
-        //animar el nodo que se agrega
-        animacion_cy_arrow_node(food,0,800,1);
+            //guardar la posicion del nodo
+            localStorage.setItem('pan', JSON.stringify(cy.pan()))
+            localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
+
+            //agrega el nodo al flujo
+            layout.run();
+
+            //evitar efecto de movimiento del grafo
+            cy.pan(JSON.parse(localStorage.getItem('pan')))
+            cy.zoom(JSON.parse(localStorage.getItem('zoom')))
+
+            //animar el nodo que se agrega
+            animacion_cy_arrow_node(food, 0, 800, 1);
         }
 
-    
+
     }
 
 }); // on tap
@@ -144,7 +224,7 @@ cy.on('tap', 'node', function () {
  *  @nuevo ahora al hace la animacion de los nodos devolverlos al grafo
  *  funcion por defecto de cytoscape hecha por @author: https://cytoscape.org/
  */
-function animacion_cy_arrow_node(food,delay,duration,type) {
+function animacion_cy_arrow_node(food, delay, duration, type) {
 
     let pistion_aux = {}
     let array_css = [
@@ -171,14 +251,14 @@ function animacion_cy_arrow_node(food,delay,duration,type) {
 
             //guardar la posicion del nodo y asignarle la del padre
             if (type === 1) {
-                localStorage.setItem('position_aux',JSON.stringify(thisFood.position()))
+                localStorage.setItem('position_aux', JSON.stringify(thisFood.position()))
                 thisFood.position(eater.position())
                 pistion_aux = JSON.parse(localStorage.getItem('position_aux'))
             }
             else {
                 pistion_aux = eater.position()
             }
-           
+
             thisFood.delay(delay, function () {
                 eater.addClass('eating');
             }).animate({
@@ -189,9 +269,9 @@ function animacion_cy_arrow_node(food,delay,duration,type) {
                 complete: function () {
 
                     if (type === 0) {
-                    //guardamos el nombre del nodo borrado y quien era su padre
-                    object_nodes[thisFood.id()] = eater.id();
-                    thisFood.remove();
+                        //guardamos el nombre del nodo borrado y quien era su padre
+                        object_nodes[thisFood.id()] = eater.id();
+                        thisFood.remove();
                     }
                 }
             });
