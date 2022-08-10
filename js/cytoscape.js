@@ -48,9 +48,6 @@ var cy = cytoscape({
 */
 async function jerarquia_cytoscape() {
 
-    //variables
-    var nodes = cy.getElementById('Martha Lucia');
-    var food = [];
 
     //obtener los nodos del grafo
     const nodes_praticantes = await elements_array('node_praticantes')
@@ -89,6 +86,12 @@ async function jerarquia_cytoscape() {
     //evitar efecto de movimiento del grafo
     cy.pan(JSON.parse(localStorage.getItem('pan')))
     cy.zoom(JSON.parse(localStorage.getItem('zoom')))
+
+    /* Simulacion de  animacion de un nodo predeterminado */
+
+    //variables
+    var nodes = cy.getElementById('Martha Lucia');
+    var food = [];
 
     //edges del nodo seleccionado
     get_nodes_edges(food,nodes)
