@@ -75,7 +75,15 @@ async function jerarquia_cytoscape() {
         padding: 10
     });
 
+    localStorage.setItem('pan', JSON.stringify(cy.pan()))
+    localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
+
+    //agrega el nodo al flujo
     layout.run();
+
+    //evitar efecto de movimiento del grafo
+    cy.pan(JSON.parse(localStorage.getItem('pan')))
+    cy.zoom(JSON.parse(localStorage.getItem('zoom')))
 
 }
 
