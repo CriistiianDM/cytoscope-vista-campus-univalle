@@ -161,7 +161,7 @@ cy.on('tap', 'node', function () {
     }
 
     //animacion de los nodos al borrarlos
-    animacion_cy_arrow_node(food, 0, 100, 0);
+    animacion_cy_arrow_node(food, 0, 500, 0);
 
     //cuando no tiene hijos verifica si en el pasado tenia y se los agrega
     if (food.length === 0) {
