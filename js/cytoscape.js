@@ -188,13 +188,12 @@ cy.on('tap', 'node', function () {
             if (object_nodes[i] === tapped.id()) {
 
                 cy.add({
-                    data: { id: i }
-                });
-
-                cy.style().selector('#' + i).style({
-                    'opacity': 0,
-                    'width': 10,
-                    'height': 10,
+                    data: { id: i },
+                    style: {
+                        'opacity': 0,
+                        'width': 10,
+                        'height': 10,
+                    }
                 });
 
                 cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}`, source: tapped.id(), target: i } })
@@ -252,7 +251,7 @@ function animacion_cy_arrow_node(food, delay, duration, type) {
         {
             'opacity': 1,
             'width': 80,
-            'height': 80,
+            'height': 80
         }
     ]
 
