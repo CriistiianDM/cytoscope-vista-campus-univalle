@@ -64,24 +64,24 @@ cy.on('tap', 'node', function () {
     var food = [];
 
     nodes.addClass('eater');
-  
+
     for (; ;) {
         var connectedEdges = nodes.connectedEdges(function (el) {
             return !el.target().anySame(nodes);
         });
-        
+
         var connectedNodes = connectedEdges.targets();
-       
+
         Array.prototype.push.apply(food, connectedNodes);
-       
+
         nodes = connectedNodes;
 
         if (nodes.empty()) { break; }
-       
+
     }
-   
+
     //animacion de los nodos al borrarlos
-    animacion_cy_arrow_node(food,0,500,0);
+    animacion_cy_arrow_node(food, 0, 500, 0);
 
     //cuando no tiene hijos verifica si en el pasado tenia y se los agrega
     if (food.length === 0) {
@@ -92,47 +92,46 @@ cy.on('tap', 'node', function () {
             //verifica si el nodo padre tenia hijoss y si es asi lo agrega
             if (object_nodes[i] === tapped.id()) {
 
-            cy.add({ 
-                data: { id: i }
-             });
+                cy.add({
+                    data: { id: i },
+                    style: {
+                        'opacity': 0,
+                        'width': 10,
+                        'height': 10,
+                    }
+                });
 
-            cy.style().selector('#' + i).style({
-                'opacity': 0,
-                'width': 10,
-                'height': 10,
-            });
+                cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}`, source: tapped.id(), target: i } })
 
-            cy.add({ group: 'edges', data: { id: `${tapped.id()}${i}` , source: tapped.id() , target: i } })
-            
-            var layout = cy.layout({
-                name: 'breadthfirst',
-                directed: true,
-                padding: 10
-            });
+                var layout = cy.layout({
+                    name: 'breadthfirst',
+                    directed: true,
+                    padding: 10
+                });
 
-            Array.prototype.push.apply(food, cy.getElementById(i));
-           }
-            
+                Array.prototype.push.apply(food, cy.getElementById(i));
+            }
+
         }
-      
+
         if (food[0] !== undefined) {
 
-        //guardar la posicion del nodo
-        localStorage.setItem('pan', JSON.stringify(cy.pan()))
-        localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
-      
-        //agrega el nodo al flujo
-        layout.run();
-       
-        //evitar efecto de movimiento del grafo
-        cy.pan(JSON.parse(localStorage.getItem('pan')))
-        cy.zoom(JSON.parse(localStorage.getItem('zoom')))
-        
-        //animar el nodo que se agrega
-        animacion_cy_arrow_node(food,0,800,1);
+            //guardar la posicion del nodo
+            localStorage.setItem('pan', JSON.stringify(cy.pan()))
+            localStorage.setItem('zoom', JSON.stringify(cy.zoom()))
+
+            //agrega el nodo al flujo
+            layout.run();
+
+            //evitar efecto de movimiento del grafo
+            cy.pan(JSON.parse(localStorage.getItem('pan')))
+            cy.zoom(JSON.parse(localStorage.getItem('zoom')))
+
+            //animar el nodo que se agrega
+            animacion_cy_arrow_node(food, 0, 800, 1);
         }
 
-    
+
     }
 
 }); // on tap
@@ -144,7 +143,7 @@ cy.on('tap', 'node', function () {
  *  @nuevo ahora al hace la animacion de los nodos devolverlos al grafo
  *  funcion por defecto de cytoscape hecha por @author: https://cytoscape.org/
  */
-function animacion_cy_arrow_node(food,delay,duration,type) {
+function animacion_cy_arrow_node(food, delay, duration, type) {
 
     let pistion_aux = {}
     let array_css = [
@@ -171,14 +170,14 @@ function animacion_cy_arrow_node(food,delay,duration,type) {
 
             //guardar la posicion del nodo y asignarle la del padre
             if (type === 1) {
-                localStorage.setItem('position_aux',JSON.stringify(thisFood.position()))
+                localStorage.setItem('position_aux', JSON.stringify(thisFood.position()))
                 thisFood.position(eater.position())
                 pistion_aux = JSON.parse(localStorage.getItem('position_aux'))
             }
             else {
                 pistion_aux = eater.position()
             }
-           
+
             thisFood.delay(delay, function () {
                 eater.addClass('eating');
             }).animate({
@@ -189,9 +188,9 @@ function animacion_cy_arrow_node(food,delay,duration,type) {
                 complete: function () {
 
                     if (type === 0) {
-                    //guardamos el nombre del nodo borrado y quien era su padre
-                    object_nodes[thisFood.id()] = eater.id();
-                    thisFood.remove();
+                        //guardamos el nombre del nodo borrado y quien era su padre
+                        object_nodes[thisFood.id()] = eater.id();
+                        thisFood.remove();
                     }
                 }
             });
