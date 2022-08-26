@@ -1,44 +1,120 @@
 {
     "nodes": [
         {
-            "data": { "id": "Martha Lucia" }
+            "data": { "id": "a" }
+        },
+
+        {
+            "data": { "id": "b" }
+        },
+
+        {
+            "data": { "id": "c" }
         },
         {
-            "data": { "id": "STEFANYA JIMENO MENDEZ" }
+            "data": { "id": "d" }
         },
         {
-            "data": { "id": "ANDREY VELÁSQUEZ FERNÁNDEZ" }
+            "data": { "id": "u" }
         },
         {
-            "data": { "id": "CAROLINA ESLAVA RIVERA" }
+            "data": { "id": "k" }
         },
         {
-            "data": { "id": "CONSTANZA ISABEL SANDOVAL FORERO" }
+            "data": { "id": "lol" }
         },
         {
-            "data": { "id": "SARA MARTAN MANTILLA" }
+            "data": { "id": "cristiank" }
+        },
+        {
+            "data": { "id": "bu" }
+        },
+        {
+            "data": { "id": "j" }
+        },
+        {
+            "data": { "id": "p" }
+        },
+        {
+            "data": { "id": "m" }
+        },
+        {
+            "data": { "id": "n" }
+        },
+        {
+            "data": { "id": "o" }
+        },
+        {
+            "data": { "id": "l" }
+        },
+        {
+            "data": { "id": "q" }
+        },
+        {
+            "data": { "id": "r" }
+        },
+        {
+            "data": { "id": "s" }
+        },
+        {
+            "data": { "id": "t" }
         }
     ],
     "edges": [
         {
-            "data": {  "source": "Martha Lucia", "target": "STEFANYA JIMENO MENDEZ" }
+            "data": { "id": "ab", "source": "a", "target": "b" }
 
         },
         {
-            "data": {  "source": "Martha Lucia", "target": "ANDREY VELÁSQUEZ FERNÁNDEZ" }
-
+            "data": { "id": "cd", "source": "c", "target": "d" }
         },
         {
-            "data": {  "source": "Martha Lucia", "target": "CAROLINA ESLAVA RIVERA" }
-
+            "data": { "id": "uc", "source": "u", "target": "c" }
         },
         {
-            "data": {  "source": "Martha Lucia", "target": "CONSTANZA ISABEL SANDOVAL FORERO" }
-
+            "data": { "id": "ua", "source": "u", "target": "a" }
         },
         {
-            "data": {  "source": "Martha Lucia", "target": "SARA MARTAN MANTILLA" }
-
+            "data": { "id": "ak", "source": "a", "target": "k" }
+        },
+        {
+            "data": { "id": "kl", "source": "k", "target": "lol" }
+        },
+        {
+            "data": { "id": "kl1", "source": "u", "target": "cristiank" }
+        },
+        {
+            "data": { "id": "kl2", "source": "a", "target": "bu" }
+        },
+        {
+            "data": { "id": "kl3", "source": "b", "target": "j" }
+        },
+        {
+            "data": { "id": "kl4", "source": "c", "target": "p" }
+        },
+        {
+            "data": { "id": "kl5", "source": "d", "target": "m" }
+        },
+        {
+            "data": { "id": "kl6", "source": "u", "target": "n" }
+        },
+        {
+            "data": { "id": "kl7", "source": "a", "target": "o" }
+        },
+        {
+            "data": { "id": "kl8", "source": "b", "target": "l" }
+        },
+        {
+            "data": { "id": "kl9", "source": "c", "target": "q" }
+        },
+        {
+            "data": { "id": "kl10", "source": "d", "target": "r" }
+        },
+        {
+            "data": { "id": "kl11", "source": "u", "target": "s" }
+        },
+        {
+            "data": { "id": "kl12", "source": "a", "target": "t" }
         }
     ]
 }

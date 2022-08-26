@@ -5,8 +5,7 @@
           "height": 80,
           "width": 80,
           "background-fit": "cover",
-          "border-color": "#EC7063",
-          "background-color": "#FDEDEC",
+          "border-color": "#000",
           "border-width": 3,
           "border-opacity": 0.5,
           "label": "data(id)"
